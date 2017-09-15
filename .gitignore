@@ -57,3 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
+# mac
+.DS_Store
+
+# sublime text
+*.sublime-project
+*.sublime-workspace
+
