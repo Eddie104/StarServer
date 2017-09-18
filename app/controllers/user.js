@@ -1,41 +1,28 @@
 "use strict";
 
-// const userModel          = require('../models/userModel');
-const userModel             = require('../models/userModel');
-// const easyUserController = require('./easy/userController');
-const jsonUtil              = require('../utils/jsonUtil');
-const dateUtil              = require('../utils/dateUtil');
-const regUtil               = require('../utils/regUtil');
-const encryptionUtil        = require('../utils/encryptionUtil');
-const numberUtil            = require('../utils/numberUtil');
-const config                = require('../../config');
-const co                    = require('co');
+const userModel      = require('../models/userModel');
+const jsonUtil       = require('../utils/jsonUtil');
+const dateUtil       = require('../utils/dateUtil');
+const regUtil        = require('../utils/regUtil');
+const encryptionUtil = require('../utils/encryptionUtil');
+const numberUtil     = require('../utils/numberUtil');
+const config         = require('../../config');
+const co             = require('co');
 
-// co(init);
+co(init);
 
-// async function init() {
-// 	let me = await userModel.findOne({account: '13801872620'});
-// 	if (!me) {
-// 		me = new userModel({
-// 			account: '13801872620',
-// 			password: encryptionUtil.encryptionPassword('hongjie104'),
-// 			birthday: dateUtil.now(),
-// 			registerDate: dateUtil.now(),
-// 			phone: '13801872620'
-// 		});
-// 		await me.save();
-// 	}
-// 	const accountID = me.id;
-// 	me = await userModel.findOne({accountID});
-// 	if (!me) {
-// 		me = new userModel({
-// 			accountID,
-// 			name: '鸿杰',
-// 			adminType: 5
-// 		});
-// 		await me.save();
-// 	}
-// }
+async function init() {
+	let me = await userModel.findOne({account: 'admin'});
+	if (!me) {
+		me = new userModel({
+			account: 'admin',
+			password: encryptionUtil.encryptionPassword('123456'),
+			registerDate: dateUtil.now(),
+			adminType: 1
+		});
+		await me.save();
+	}
+}
 
 exports.register = async function (ctx) {
 	let { account, password, source, phone } = ctx.params;

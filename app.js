@@ -23,8 +23,9 @@ app.logger = function (name){
 // db
 require('./app/models/db');
 
-const index         = require('./routes/index');
-const users         = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
+const admin = require('./routes/admin');
 
 // middlewares
 app.use(cors());
@@ -40,6 +41,7 @@ app.use(views(__dirname + '/views', {
 
 router.use('/', index.routes(), index.allowedMethods());
 router.use('/users/', users.routes(), users.allowedMethods());
+router.use('/admin/', admin.routes(), admin.allowedMethods());
 // router.use('/admin/', admin.routes(), admin.allowedMethods());
 // router.use('/product/', product.routes(), product.allowedMethods());
 // router.use('/easy/', easy.routes(), easy.allowedMethods());

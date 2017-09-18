@@ -11,14 +11,11 @@ const COLLECTION_NAME = 'users';
 const userSchema = new mongoose.Schema({
 	account: {type: String, required: true, index: true},
 	password: {type: String, required: true},
-	// 生日
-	birthday: {type: Date, require: true},
 	// 创建时间
 	registerDate: {type: Date, required: true},
-	// 手机号
-	phone: {type: String, default: ''},
-	// 用户来源，是qq的还是微信的
-	source: {type: String, default: "tomato"}
+	source: {type: String, default: "web"},
+	// 是否是管理员，0：不是，1：是
+	adminType: {type: Number, default: 0}
 }, {collection: COLLECTION_NAME});
 
 /**

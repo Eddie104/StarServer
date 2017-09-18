@@ -9,7 +9,6 @@ let encryptionUtil = require('./encryptionUtil');
 
 exports.myDecodeURIComponent = function (str) {
 	return decodeURIComponent(str).replace(/`/g, "%");
-	// return decodeURIComponent(escape(str));
 };
 
 exports.createAPI = function (status, jsonData) {
