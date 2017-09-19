@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
 	password: {type: String, required: true},
 	// 创建时间
 	registerDate: {type: Date, required: true},
+	name: {type: String, default: 'no name'},
 	source: {type: String, default: "web"},
 	// 是否是管理员，0：不是，1：是
 	adminType: {type: Number, default: 0}

@@ -18,7 +18,8 @@ async function init() {
 			account: 'admin',
 			password: encryptionUtil.encryptionPassword('123456'),
 			registerDate: dateUtil.now(),
-			adminType: 1
+			adminType: 1,
+			name: '管理员'
 		});
 		await me.save();
 	}
