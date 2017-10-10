@@ -6,7 +6,7 @@ module.exports = {
 	MongoDB: {
 		PORT: 27017,
 		HOST: "localhost",
-		NAME: "tomato",
+		NAME: "star",
 		// 登录数据库的账号
 		// USER: "tuQing",
 		// 登录数据库的密码
