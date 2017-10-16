@@ -1,15 +1,15 @@
 "use strict";
 
 /**
- * 金币变化记录数据表
+ * 道具变化记录数据表
  */
 const mongoose        = require('mongoose');
 const autoIncrement   = require('./db');
-const MODEL_NAME      = 'dollarRecord';
-const COLLECTION_NAME = 'dollarRecords';
+const MODEL_NAME      = 'itemRecord';
+const COLLECTION_NAME = 'itemRecords';
 
 const schema = new mongoose.Schema({
-	// 可查看指定用户的金币消耗记录，包括消耗时间，关卡数，金币消耗数额，消耗原因，增加数量，增加时间，增加原因。
+	// 可查看指定用户的道具记录，包括时间，关卡数，道具数量，消耗时间,增加数量，增加时间，增加原因。
 	uid: {type: Number, required: true, index: true},
 	date: {type: Date, required: true},
 	// 变化之前的数量
@@ -19,7 +19,11 @@ const schema = new mongoose.Schema({
 	// 变化的原因
 	reason: {type: String, required: true},
 	// 变化原因的参数
-	params: {type: String, required: true}
+	params: {type: String, required: true},
+	// 关卡数
+	level: {type: Number, required: true},
+	// 道具类型
+	type: {type: Number, required: true}
 }, {collection: COLLECTION_NAME});
 
 /**

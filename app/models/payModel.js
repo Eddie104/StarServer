@@ -1,25 +1,21 @@
 "use strict";
 
 /**
- * 金币变化记录数据表
+ * 充值数据表
  */
 const mongoose        = require('mongoose');
 const autoIncrement   = require('./db');
-const MODEL_NAME      = 'dollarRecord';
-const COLLECTION_NAME = 'dollarRecords';
+const MODEL_NAME      = 'pay';
+const COLLECTION_NAME = 'pay';
 
 const schema = new mongoose.Schema({
-	// 可查看指定用户的金币消耗记录，包括消耗时间，关卡数，金币消耗数额，消耗原因，增加数量，增加时间，增加原因。
+	// 可查看指定用户的充值记录，包括充值时间，数额，充值入口
 	uid: {type: Number, required: true, index: true},
 	date: {type: Date, required: true},
-	// 变化之前的数量
-	oldVal: {type: Number, required: true},
-	// 变化之后的数量
-	newVal: {type: Number, required: true},
-	// 变化的原因
-	reason: {type: String, required: true},
-	// 变化原因的参数
-	params: {type: String, required: true}
+	// 数额
+	val: {type: Number, required: true},
+	// 充值入口
+	source: {type: String, required: true}
 }, {collection: COLLECTION_NAME});
 
 /**

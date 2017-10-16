@@ -31,7 +31,7 @@ schema.plugin(autoIncrement.plugin, {
 	// 自增长字段名
 	field: 'id',
 	// 起始数值
-	startAt: 0,
+	startAt: 1,
 	// 自增值
 	incrementBy: 1
 });

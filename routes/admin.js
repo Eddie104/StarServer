@@ -23,4 +23,18 @@ router.get('getUserLoginData/:page/:count/:source', admin.getUserLoginData);
 
 router.get('getUserLevelData/:uid/:page/:count', admin.getUserLevelData);
 
+router.get('getDollarRecord/:uid/:page/:count', admin.getDollarRecord);
+
+router.get('getItemRecord/:uid/:page/:count', admin.getItemRecord);
+
+router.get('getDiamondsRecord/:uid/:page/:count', admin.getDiamondsRecord);
+
+router.get('getPay/:uid/:page/:count', admin.getPay);
+
+router.get('createDollarCode/:dollar/:count', admin.createDollarCode);
+router.get('getDollarCode/:page/:count', admin.getDollarCode);
+
+router.post('createActivityNotice', admin.createActivityNotice);
+router.get('getActivityNotice/:page/:count', admin.getActivityNotice);
+
 module.exports = router;
