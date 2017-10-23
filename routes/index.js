@@ -125,7 +125,7 @@ const router     = require('koa-router')();
 
 router.get('/', async function (ctx, next) {
 	ctx.state = {
-		title: '番茄日语'
+		title: '消灭星星 17.10.23.1'
 	};
 
 	await ctx.render('index', { });
