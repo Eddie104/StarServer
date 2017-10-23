@@ -119,7 +119,7 @@ exports.levelWin = async function (ctx) {
 		endDollar,
 		endDiamonds
 	} = ctx.params;
-	level numberUtil.toInt(level);
+	level = numberUtil.toInt(level);
 	startTimer = numberUtil.toInt(startTimer);
 	endTimer = numberUtil.toInt(endTimer);
 	startNumItem4 = numberUtil.toInt(startNumItem4);
@@ -248,11 +248,11 @@ exports.levelWin = async function (ctx) {
 		}
 		// 更新金币和最大关卡
 		const maxLevel = me.maxLevel > level ? me.maxLevel : level;
-		await userModel.update({account, {$set: {
+		await userModel.update({account}, {$set: {
 			dollar: endDollar,
 			diamonds: endDiamonds,
 			maxLevel
-		}}});
+		}});
 
 		const levelData = new levelModel({
 			uid: me.id,
