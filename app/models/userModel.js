@@ -30,7 +30,7 @@ const schema = new mongoose.Schema({
 	// 钻石数量
 	diamonds: {type: Number, default: 0},
 	// 道具数量
-	items: {type: [Number], default: []},
+	items: {type: [Number], default: [0, 0, 0, 0 ]},
 	// 总充值金额
 	payMoney: {type: Number, default: 0},
 	// 注册IP

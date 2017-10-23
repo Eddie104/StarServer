@@ -26,11 +26,12 @@ def fetchGoods(url):
 		break
 
 def fetchSection(url):
-	pq = helper.get(url)
-	aList = pq('.product__rating-n-view-product>a')
-	for a in aList:
-		fetchGoods(a.get('href'))
-		break
+	print(url)
+	# pq = helper.get('%s' % url)
+	# aList = pq('.product__rating-n-view-product>a')
+	# for a in aList:
+	# 	fetchGoods(a.get('href'))
+	# 	break
 
 if __name__ == '__main__':
 	url = 'https://www.bodybuilding.com/store/listing.htm'
