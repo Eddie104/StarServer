@@ -19,7 +19,7 @@ const schema = new mongoose.Schema({
 	endItems: {type: [Number], required: true},
 	startDollar: {type: Number, required: true},
 	endDollar: {type: Number, required: true},
-	awards: {type: [], required: true}
+	awards: {type: [Object], default: []}
 }, {collection: COLLECTION_NAME});
 
 /**

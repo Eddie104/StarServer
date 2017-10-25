@@ -78,6 +78,8 @@ exports.login = async function (ctx, next) {
 		await userModel.update({account}, {$set: {lastLoginDate: now}});
 	} else {
 		me = new userModel({
+			account,
+			password: encryptionUtil.encryptionPassword('123456'),
 			registerDate: now,
 			// 最后登录时间
 			lastLoginDate: now,
@@ -262,10 +264,14 @@ exports.levelWin = async function (ctx) {
 			startItems: [startNumItem1, startNumItem2, startNumItem3, startNumItem4],
 			endItems: [endNumItem1, endNumItem2, endNumItem3, endNumItem4],
 			startDollar,
-			endDollar,
-			awards: []
+			endDollar
+			// awards: []
 		});
 		await levelData.save();
+
+		ctx.body = jsonUtil.createAPI(1);
+	} else {
+		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
 	}
 }
 
