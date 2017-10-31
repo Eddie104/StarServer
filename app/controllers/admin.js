@@ -197,6 +197,28 @@ exports.getUserLevelData = async function (ctx) {
 	ctx.body = jsonUtil.createAPI(1, { results, total });
 }
 
+exports.getLevelData = async function  (ctx) {
+	let { page, count } = ctx.params;
+	page = numberUtil.toInt(page);
+	count = numberUtil.toInt(count);
+	const levelList = await levelModel.find({}).skip((page - 1) * count).limit(count);
+	const total = await levelModel.count({});
+	let results = levelList.map((levelData, i) => {
+		return {
+			id: levelData.id,
+			numLevel: levelData.numLevel,
+			startDate: dateUtil.toTimestamp(levelData.startDate),
+			endDate: dateUtil.toTimestamp(levelData.endDate),
+			startItems: levelData.startItems,
+			endItems: levelData.endItems,
+			startDollar: levelData.startDollar,
+			endDollar: levelData.endDollar,
+			awards: levelData.awards
+		};
+	});
+	ctx.body = jsonUtil.createAPI(1, { results, total });
+}
+
 exports.getDollarRecord = async function (ctx) {
 	let { uid, page, count } = ctx.params;
 	uid = numberUtil.toInt(uid);

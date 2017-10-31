@@ -29,21 +29,21 @@ async function init() {
 		await me.save();
 	}
 
-	const numUser = await userModel.count();
-	if (numUser < 10) {
-		let u = null;
-		for (let i = 0; i < 36; i++) {
-			u = new userModel({
-				account: 'test' + i,
-				password: encryptionUtil.encryptionPassword('123456'),
-				registerDate: dateUtil.now(),
-				lastLoginDate: dateUtil.now(),
-				adminType: 0,
-				name: 'name' + i
-			});
-			await u.save();
-		}
-	}
+	// const numUser = await userModel.count();
+	// if (numUser < 10) {
+	// 	let u = null;
+	// 	for (let i = 0; i < 36; i++) {
+	// 		u = new userModel({
+	// 			account: 'test' + i,
+	// 			password: encryptionUtil.encryptionPassword('123456'),
+	// 			registerDate: dateUtil.now(),
+	// 			lastLoginDate: dateUtil.now(),
+	// 			adminType: 0,
+	// 			name: 'name' + i
+	// 		});
+	// 		await u.save();
+	// 	}
+	// }
 }
 
 // exports.register = async function (ctx) {

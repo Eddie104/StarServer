@@ -22,6 +22,7 @@ router.get('getUserLoginData/:page/:count', admin.getUserLoginData);
 router.get('getUserLoginData/:page/:count/:source', admin.getUserLoginData);
 
 router.get('getUserLevelData/:uid/:page/:count', admin.getUserLevelData);
+router.get('getLevelData/:page/:count', admin.getLevelData);
 
 router.get('getDollarRecord/:uid/:page/:count', admin.getDollarRecord);
 
