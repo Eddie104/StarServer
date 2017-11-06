@@ -19,7 +19,7 @@ const schema = new mongoose.Schema({
 	// 变化的原因
 	reason: {type: String, required: true},
 	// 变化原因的参数
-	params: {type: String, required: true}
+	params: {type: String, default: ''}
 }, {collection: COLLECTION_NAME});
 
 /**

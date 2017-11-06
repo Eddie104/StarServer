@@ -17,6 +17,7 @@ exports.defaultDay = function () {
 
 exports.toTimestamp = function (date) {
 	return date ? numberUtil.toInt(moment(date).subtract(8, 'hours').format('x')) : null;
+	// return date ? numberUtil.toInt(moment(date).format('x')) : null;
 };
 
 // exports.toYYMMDD = function (date) {

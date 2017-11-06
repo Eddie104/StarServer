@@ -220,12 +220,12 @@ exports.getLevelData = async function  (ctx) {
 }
 
 exports.getDollarRecord = async function (ctx) {
-	let { uid, page, count } = ctx.params;
-	uid = numberUtil.toInt(uid);
+	let { page, count } = ctx.params;
+	// uid = numberUtil.toInt(uid);
 	page = numberUtil.toInt(page);
 	count = numberUtil.toInt(count);
-	const recordList = await dollarRecordModel.find({uid}).skip((page - 1) * count).limit(count);
-	const total = await dollarRecordModel.count({uid});
+	const recordList = await dollarRecordModel.find({}).skip((page - 1) * count).limit(count);
+	const total = await dollarRecordModel.count({});
 	let results = recordList.map((record, i) => {
 		return {
 			id: record.id,

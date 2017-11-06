@@ -15,11 +15,12 @@ const schema = new mongoose.Schema({
 	numLevel: {type: Number, required: true},
 	startDate: {type: Date, required: true},
 	endDate: {type: Date, required: true},
+	// 炸弹、变色、交换、倒计时
 	startItems: {type: [Number], required: true},
 	endItems: {type: [Number], required: true},
 	startDollar: {type: Number, required: true},
 	endDollar: {type: Number, required: true},
-	awards: {type: [Object], default: []}
+	awards: {type: Object, default: []}
 }, {collection: COLLECTION_NAME});
 
 /**

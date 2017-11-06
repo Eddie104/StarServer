@@ -119,7 +119,8 @@ exports.levelWin = async function (ctx) {
 		endNumItem4,
 		startDollar,
 		endDollar,
-		endDiamonds
+		endDiamonds,
+		award
 	} = ctx.params;
 	level = numberUtil.toInt(level);
 	startTimer = numberUtil.toInt(startTimer);
@@ -264,11 +265,72 @@ exports.levelWin = async function (ctx) {
 			startItems: [startNumItem1, startNumItem2, startNumItem3, startNumItem4],
 			endItems: [endNumItem1, endNumItem2, endNumItem3, endNumItem4],
 			startDollar,
-			endDollar
-			// awards: []
+			endDollar,
+			awards: JSON.parse(award)
 		});
 		await levelData.save();
 
+		ctx.body = jsonUtil.createAPI(1);
+	} else {
+		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
+	}
+}
+
+exports.changeName = async function (ctx) {
+	const { account, name } = ctx.params;
+	const me = await userModel.findOne({account}, {name: 1});
+	if (me) {
+		await userModel.update({account}, {$set: {name}});
+		ctx.body = jsonUtil.createAPI(1);
+	} else {
+		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
+	}
+}
+
+exports.dollarChanged = async function (ctx) {
+	let { account, reason, val, params } = ctx.params;
+	params = params || '';
+	val = numberUtil.toInt(val);
+	const me = await userModel.findOne({account}, {id: 1, dollar: 1, _id: -1});
+	if (me) {
+		const dollarRecordData = new dollarRecordModel({
+			uid: me.id,
+			date: dateUtil.now(),
+			// 变化之前的数量
+			oldVal: me.dollar,
+			// 变化之后的数量
+			newVal: me.dollar + val,
+			// 变化的原因
+			reason,
+			// 变化原因的参数
+			params
+		});
+		await dollarRecordData.save();
+		ctx.body = jsonUtil.createAPI(1);
+	} else {
+		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
+	}
+}
+
+exports.diamondsChanged = async function (ctx) {
+	let { account, reason, val, params } = ctx.params;
+	params = params || '';
+	val = numberUtil.toInt(val);
+	const me = await userModel.findOne({account}, {id: 1, diamonds: 1, _id: -1});
+	if (me) {
+		const diamondsRecordData = new diamondsRecordModel({
+			uid: me.id,
+			date: dateUtil.now(),
+			// 变化之前的数量
+			oldVal: me.diamonds,
+			// 变化之后的数量
+			newVal: me.diamonds + val,
+			// 变化的原因
+			reason,
+			// 变化原因的参数
+			params
+		});
+		await diamondsRecordData.save();
 		ctx.body = jsonUtil.createAPI(1);
 	} else {
 		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
