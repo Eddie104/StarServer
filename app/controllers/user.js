@@ -306,6 +306,7 @@ exports.dollarChanged = async function (ctx) {
 			params
 		});
 		await dollarRecordData.save();
+		await userModel.update({account}, {$set: {dollar: me.dollar + val}});
 		ctx.body = jsonUtil.createAPI(1);
 	} else {
 		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
@@ -331,6 +332,7 @@ exports.diamondsChanged = async function (ctx) {
 			params
 		});
 		await diamondsRecordData.save();
+		await userModel.update({account}, {$set: {diamonds: me.diamonds + val}});
 		ctx.body = jsonUtil.createAPI(1);
 	} else {
 		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
