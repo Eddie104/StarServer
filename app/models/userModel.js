@@ -42,7 +42,24 @@ const schema = new mongoose.Schema({
 	// 运营商
 	deviceOperator: {type: String, default: ''},
 	// 手机号
-	phone: {type: String, default: ''}
+	phone: {type: String, default: ''},
+	// 以下的都是客户端的数据，之前都在存在客户端，现在放在数据库里
+	lastLevel: {type: Number, default: 0},
+	totalScore: {type: Number, default: 0},
+	levelScore: {type: [Number], default: []},
+	exp: {type: Number, default: 0},
+	maxTotalScore: {type: Number, default: 0},
+	lastFetchLoginAwardTime: {type: Number, default: 0},
+	fetchLoginAwardCount: {type: Number, default: 0},
+	liuXingMax: {type: Number, default: 0},
+	lastFailedLevel: {type: Number, default: 0},
+	weekRankRecord: {type: Number, default: 0},
+	weekRank: {type: Number, default: 0},
+	weekScore: {type: Number, default: 0},
+	monthRankRecord: {type: Number, default: 0},
+	monthRank: {type: Number, default: 0},
+	monthScore: {type: Number, default: 0},
+	maxLevel: {type: Number, default: 0}
 }, {collection: COLLECTION_NAME});
 
 /**

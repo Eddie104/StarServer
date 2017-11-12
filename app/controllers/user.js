@@ -67,13 +67,41 @@ async function init() {
 // };
 
 exports.login = async function (ctx, next) {
-	let { account, source } = ctx.params;
+	let { account, source } = ctx.request.body;
+	console.log('account = ', account)
+	console.log('source = ', source)
 	account = jsonUtil.myDecodeURIComponent(account);
 	if (source !== 'web' && source !== 'native') {
 		source = 'web';
 	}
 	const now = dateUtil.now();
-	let me = await userModel.findOne({account}, {id: 1});
+	/*
+	
+	*/
+	let me = await userModel.findOne({account}, {
+		_id: -1,
+		id: 1,
+		name: 1,
+		lastLevel: 1,
+		totalScore: 1,
+		levelScore: 1,
+		exp: 1,
+		maxTotalScore: 1,
+		lastFetchLoginAwardTime: 1,
+		fetchLoginAwardCount: 1,
+		liuXingMax: 1,
+		lastFailedLevel: 1,
+		weekRankRecord: 1,
+		weekRank: 1,
+		weekScore: 1,
+		monthRankRecord: 1,
+		monthRank: 1,
+		monthScore: 1,
+		maxLevel: 1,
+		items: 1,
+		diamonds: 1,
+		dollar: 1
+	});
 	if (me) {
 		await userModel.update({account}, {$set: {lastLoginDate: now}});
 	} else {
@@ -100,7 +128,28 @@ exports.login = async function (ctx, next) {
 		});
 		await me.save();
 	}
-	ctx.body = jsonUtil.createAPI(1);
+	ctx.body = jsonUtil.createAPI(1, {
+		name: me.name,
+		lastLevel: me.lastLevel,
+		totalScore: me.totalScore,
+		levelScore: me.levelScore,
+		exp: me.exp,
+		maxTotalScore: me.maxTotalScore,
+		lastFetchLoginAwardTime: me.lastFetchLoginAwardTime,
+		fetchLoginAwardCount: me.fetchLoginAwardCount,
+		liuXingMax: me.liuXingMax,
+		lastFailedLevel: me.lastFailedLevel,
+		weekRankRecord: me.weekRankRecord,
+		weekRank: me.weekRank,
+		weekScore: me.weekScore,
+		monthRankRecord: me.monthRankRecord,
+		monthRank: me.monthRank,
+		monthScore: me.monthScore,
+		maxLevel: me.maxLevel,
+		items: me.items,
+		diamonds: me.diamonds,
+		dollar: me.dollar
+	});
 };
 
 exports.levelWin = async function (ctx) {
@@ -338,6 +387,53 @@ exports.diamondsChanged = async function (ctx) {
 		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
 	}
 }
+
+exports.updateLastLevel = async function (ctx) {
+	const { account, lastLevel } = ctx.params;
+	await userModel.update({account}, {$set: {lastLevel: numberUtil.toInt(lastLevel)}});
+	ctx.body = jsonUtil.createAPI(1);
+}
+
+exports.updateTotalScore = async function (ctx) {
+	const { account, totalScore } = ctx.params;
+	await userModel.update({account}, {$set: {totalScore: numberUtil.toInt(totalScore)}});
+	ctx.body = jsonUtil.createAPI(1);
+}
+
+exports.updateLevelScore = async function (ctx) {
+	const { account, levelScore } = ctx.request.body;
+	await userModel.update({account}, {$set: {levelScore: JSON.parse(levelScore)}});
+	ctx.body = jsonUtil.createAPI(1);
+}
+
+exports.updateExp = async function (ctx) {
+	const { account, exp } = ctx.params;
+	await userModel.update({account}, {$set: {exp: numberUtil.toInt(exp)}});
+	ctx.body = jsonUtil.createAPI(1);
+}
+
+exports.updateMaxTotalScore = async function (ctx) {
+	const { account, maxTotalScore } = ctx.params;
+	await userModel.update({account}, {$set: {maxTotalScore: numberUtil.toInt(maxTotalScore)}});
+	ctx.body = jsonUtil.createAPI(1);
+}
+
+exports.updateLastFetchLoginAwardTime = async function (ctx) {
+	const { account, lastFetchLoginAwardTime, fetchLoginAwardCount } = ctx.params;
+	await userModel.update({account}, {$set: {
+		lastFetchLoginAwardTime: numberUtil.toInt(lastFetchLoginAwardTime),
+		fetchLoginAwardCount: numberUtil.toInt(fetchLoginAwardCount)
+	}});
+	ctx.body = jsonUtil.createAPI(1);
+}
+
+exports.updateLiuXingMax = async function (ctx) {
+	const { account, liuXingMax } = ctx.params;
+	await userModel.update({account}, {$set: {liuXingMax: numberUtil.toInt(liuXingMax)}});
+	ctx.body = jsonUtil.createAPI(1);
+}
+
+
 
 // exports.thirdPartyLogin = async function (ctx, next) {
 // 	const { account, headURL, source, app } = ctx.request.body;
