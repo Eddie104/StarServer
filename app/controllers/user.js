@@ -129,7 +129,8 @@ exports.login = async function (ctx, next) {
 		await me.save();
 	}
 	ctx.body = jsonUtil.createAPI(1, {
-		name: me.name,
+		name: numberUtil.from10To36(me.id + 99990000),
+		// name: me.name,
 		lastLevel: me.lastLevel,
 		totalScore: me.totalScore,
 		levelScore: me.levelScore,

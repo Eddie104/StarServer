@@ -38,4 +38,6 @@ router.get('getDollarCode/:page/:count', admin.getDollarCode);
 router.post('createActivityNotice', admin.createActivityNotice);
 router.get('getActivityNotice/:page/:count', admin.getActivityNotice);
 
+router.get('changeAccount/:oldID36/:newID36', admin.changeAccount);
+
 module.exports = router;

@@ -59,7 +59,9 @@ const schema = new mongoose.Schema({
 	monthRankRecord: {type: Number, default: 0},
 	monthRank: {type: Number, default: 0},
 	monthScore: {type: Number, default: 0},
-	maxLevel: {type: Number, default: 0}
+	maxLevel: {type: Number, default: 0},
+	// 1是正常，-1是作废了
+	// status : {type: Number, default: 1}
 }, {collection: COLLECTION_NAME});
 
 /**

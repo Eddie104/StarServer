@@ -391,3 +391,23 @@ exports.getActivityNotice = async function (ctx) {
 	});
 	ctx.body = jsonUtil.createAPI(1, { results, total });
 }
+
+exports.changeAccount = async function (ctx) {
+	const { oldID36, newID36 } = ctx.params;
+	const oldID = numberUtil.from36To10(oldID36);
+	const newID = numberUtil.from36To10(newID36);
+	const oldMe = await userModel.findOne({id: oldID}, {account: 1, _id: 0});
+	if (oldMe) {
+		const newMe = await userModel.findOne({id: newID}, {account: 1, _id: 0});
+		if (newMe) {
+			// 把旧账号的设备改成新账号的设备，这样就找回旧账号的数据了
+			await userModel.update({id: oldID}, {account: newMe.account});
+			await userModel.update({id: newID}, {account: oldMe.account});
+			ctx.body = jsonUtil.createAPI(1);
+		} else {
+			ctx.body = jsonUtil.createAPI(-1, `没有找到ID为${newID36}的账号`);
+		}
+	} else {
+		ctx.body = jsonUtil.createAPI(-1, `没有找到ID为${oldID36}的账号`);
+	}
+}
