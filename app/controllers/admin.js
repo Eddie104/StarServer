@@ -394,8 +394,8 @@ exports.getActivityNotice = async function (ctx) {
 
 exports.changeAccount = async function (ctx) {
 	const { oldID36, newID36 } = ctx.params;
-	const oldID = numberUtil.from36To10(oldID36);
-	const newID = numberUtil.from36To10(newID36);
+	const oldID = numberUtil.from36To10(oldID36) - 99990000;
+	const newID = numberUtil.from36To10(newID36) - 99990000;
 	const oldMe = await userModel.findOne({id: oldID}, {account: 1, _id: 0});
 	if (oldMe) {
 		const newMe = await userModel.findOne({id: newID}, {account: 1, _id: 0});
