@@ -60,6 +60,7 @@ exports.getAccountData = async function (ctx, next) {
 		registerDate: 1,
 		source: 1,
 		lastLoginDate: 1,
+		deviceMode: 1,
 		name: 1,
 		maxScore: 1,
 		maxLevel: 1,
@@ -71,7 +72,7 @@ exports.getAccountData = async function (ctx, next) {
 	const total = await userModel.count(condition);
 	let results = accountList.map((accountData, i) => {
 		return {
-			id: accountData.id,
+			id: numberUtil.from10To36(accountData.id),
 			account: accountData.account,
 			source: accountData.source,
 			name: accountData.name,
@@ -117,7 +118,7 @@ exports.getUserData = async function (ctx) {
 	const total = await userModel.count(condition);
 	let results = accountList.map((accountData, i) => {
 		return {
-			id: accountData.id,
+			id: numberUtil.from10To36(accountData.id),
 			name: accountData.name,
 			registerDate: dateUtil.toTimestamp(accountData.registerDate),
 			registerIP: accountData.registerIP,
@@ -150,6 +151,7 @@ exports.getUserLoginData = async function (ctx) {
 		id: 1,
 		source: 1,
 		lastLoginDate: 1,
+		deviceMode: 1,
 		registerIP: 1,
 		name: 1,
 		deviceMode: 1,
@@ -160,8 +162,9 @@ exports.getUserLoginData = async function (ctx) {
 	const total = await userModel.count(condition);
 	let results = accountList.map((accountData, i) => {
 		return {
-			id: accountData.id,
+			id: numberUtil.from10To36(accountData.id),
 			name: accountData.name,
+			deviceMode: accountData.deviceMode,
 			lastLoginDate: dateUtil.toTimestamp(accountData.lastLoginDate),
 			registerIP: accountData.registerIP,
 			deviceMode: accountData.deviceMode,
@@ -394,8 +397,8 @@ exports.getActivityNotice = async function (ctx) {
 
 exports.changeAccount = async function (ctx) {
 	const { oldID36, newID36 } = ctx.params;
-	const oldID = numberUtil.from36To10(oldID36) - 99990000;
-	const newID = numberUtil.from36To10(newID36) - 99990000;
+	const oldID = numberUtil.from36To10(oldID36);
+	const newID = numberUtil.from36To10(newID36);
 	const oldMe = await userModel.findOne({id: oldID}, {account: 1, _id: 0});
 	if (oldMe) {
 		const newMe = await userModel.findOne({id: newID}, {account: 1, _id: 0});

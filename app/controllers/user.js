@@ -5,6 +5,7 @@ const levelModel          = require('../models/levelModel');
 const dollarRecordModel   = require('../models/dollarRecordModel');
 const itemRecordModel     = require('../models/itemRecordModel');
 const diamondsRecordModel = require('../models/diamondsRecordModel');
+const activityNoticeModel = require('../models/activityNoticeModel');
 const jsonUtil            = require('../utils/jsonUtil');
 const dateUtil            = require('../utils/dateUtil');
 const regUtil             = require('../utils/regUtil');
@@ -67,9 +68,9 @@ async function init() {
 // };
 
 exports.login = async function (ctx, next) {
-	let { account, source } = ctx.request.body;
-	console.log('account = ', account)
-	console.log('source = ', source)
+	let { account, source, deviceMode } = ctx.request.body;
+	// console.log('account = ', account)
+	// console.log('source = ', source)
 	account = jsonUtil.myDecodeURIComponent(account);
 	if (source !== 'web' && source !== 'native') {
 		source = 'web';
@@ -103,7 +104,7 @@ exports.login = async function (ctx, next) {
 		dollar: 1
 	});
 	if (me) {
-		await userModel.update({account}, {$set: {lastLoginDate: now}});
+		await userModel.update({account}, {$set: {lastLoginDate: now, deviceMode}});
 	} else {
 		me = new userModel({
 			account,
@@ -111,6 +112,7 @@ exports.login = async function (ctx, next) {
 			registerDate: now,
 			// 最后登录时间
 			lastLoginDate: now,
+			deviceMode,
 			// 昵称
 			name: '玩家名字',
 			// 来源
@@ -129,7 +131,7 @@ exports.login = async function (ctx, next) {
 		await me.save();
 	}
 	ctx.body = jsonUtil.createAPI(1, {
-		name: numberUtil.from10To36(me.id + 99990000),
+		name: numberUtil.from10To36(me.id),
 		// name: me.name,
 		lastLevel: me.lastLevel,
 		totalScore: me.totalScore,
@@ -192,7 +194,7 @@ exports.levelWin = async function (ctx) {
 		if (me.dollar !== endDollar) {
 			// 记录一下金币的变化
 			const dollarRecordData = new dollarRecordModel({
-				uid: me.id,
+				uid: numberUtil.from10To36(me.id),
 				date: now,
 				// 变化之前的数量
 				oldVal: startDollar,
@@ -209,7 +211,7 @@ exports.levelWin = async function (ctx) {
 		// 判断道具是否有变化，有变化的话，还要记录一下
 		if (endNumItem1 !== me.items[0]) {
 			const itemRecordData = new itemRecordModel({
-				uid: me.id,
+				uid: numberUtil.from10To36(me.id),
 				date: now,
 				// 变化之前的数量
 				oldVal: me.items[0],
@@ -228,7 +230,7 @@ exports.levelWin = async function (ctx) {
 		}
 		if (endNumItem2 !== me.items[1]) {
 			const itemRecordData = new itemRecordModel({
-				uid: me.id,
+				uid: numberUtil.from10To36(me.id),
 				date: now,
 				// 变化之前的数量
 				oldVal: me.items[1],
@@ -247,7 +249,7 @@ exports.levelWin = async function (ctx) {
 		}
 		if (endNumItem3 !== me.items[2]) {
 			const itemRecordData = new itemRecordModel({
-				uid: me.id,
+				uid: numberUtil.from10To36(me.id),
 				date: now,
 				// 变化之前的数量
 				oldVal: me.items[2],
@@ -266,7 +268,7 @@ exports.levelWin = async function (ctx) {
 		}
 		if (endNumItem4 !== me.items[3]) {
 			const itemRecordData = new itemRecordModel({
-				uid: me.id,
+				uid: numberUtil.from10To36(me.id),
 				date: now,
 				// 变化之前的数量
 				oldVal: me.items[3],
@@ -286,7 +288,7 @@ exports.levelWin = async function (ctx) {
 		// 钻石变化记录
 		if (me.diamonds !== endDiamonds) {
 			const diamondsRecordData = new diamondsRecordModel({
-				uid: me.id,
+				uid: numberUtil.from10To36(me.id),
 				date: now,
 				// 变化之前的数量
 				oldVal: me.diamonds,
@@ -308,7 +310,7 @@ exports.levelWin = async function (ctx) {
 		}});
 
 		const levelData = new levelModel({
-			uid: me.id,
+			uid: numberUtil.from10To36(me.id),
 			numLevel: level,
 			startDate: startTimer,
 			endDate: endTimer,
@@ -344,7 +346,7 @@ exports.dollarChanged = async function (ctx) {
 	const me = await userModel.findOne({account}, {id: 1, dollar: 1, _id: -1});
 	if (me) {
 		const dollarRecordData = new dollarRecordModel({
-			uid: me.id,
+			uid: numberUtil.from10To36(me.id),
 			date: dateUtil.now(),
 			// 变化之前的数量
 			oldVal: me.dollar,
@@ -370,7 +372,7 @@ exports.diamondsChanged = async function (ctx) {
 	const me = await userModel.findOne({account}, {id: 1, diamonds: 1, _id: -1});
 	if (me) {
 		const diamondsRecordData = new diamondsRecordModel({
-			uid: me.id,
+			uid: numberUtil.from10To36(me.id),
 			date: dateUtil.now(),
 			// 变化之前的数量
 			oldVal: me.diamonds,

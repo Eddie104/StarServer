@@ -13,9 +13,9 @@ exports.toFloat = function (val) {
 };
 
 exports.from10To36 = function (val) {
-	return val.toString(36);
+	return ((val * val) + 99990000).toString(36);
 }
 
 exports.from36To10 = function (val) {
-	return parseInt(val, 36)
+	return Math.sqrt(parseInt(val, 36) - 99990000);
 }
