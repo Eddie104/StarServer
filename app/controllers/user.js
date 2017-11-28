@@ -191,116 +191,116 @@ exports.levelWin = async function (ctx) {
 	const now = dateUtil.now();
 	const me = await userModel.findOne({account}, {maxLevel: 1, id: 1, dollar: 1, items: 1, diamonds: 1});
 	if (me) {
-		if (me.dollar !== endDollar) {
-			// 记录一下金币的变化
-			const dollarRecordData = new dollarRecordModel({
-				uid: numberUtil.from10To36(me.id),
-				date: now,
-				// 变化之前的数量
-				oldVal: startDollar,
-				// 变化之后的数量
-				newVal: endDollar,
-				// 变化的原因
-				reason: 'levelWin',
-				// 变化原因的参数
-				params: level.toString()
-			});
-			await dollarRecordData.save();
-		}
+		// if (me.dollar !== endDollar) {
+		// 	// 记录一下金币的变化
+		// 	const dollarRecordData = new dollarRecordModel({
+		// 		uid: numberUtil.from10To36(me.id),
+		// 		date: now,
+		// 		// 变化之前的数量
+		// 		oldVal: startDollar,
+		// 		// 变化之后的数量
+		// 		newVal: endDollar,
+		// 		// 变化的原因
+		// 		reason: 'levelWin',
+		// 		// 变化原因的参数
+		// 		params: level.toString()
+		// 	});
+		// 	await dollarRecordData.save();
+		// }
 
 		// 判断道具是否有变化，有变化的话，还要记录一下
-		if (endNumItem1 !== me.items[0]) {
-			const itemRecordData = new itemRecordModel({
-				uid: numberUtil.from10To36(me.id),
-				date: now,
-				// 变化之前的数量
-				oldVal: me.items[0],
-				// 变化之后的数量
-				newVal: endNumItem1,
-				// 变化的原因
-				reason: 'levelWin',
-				// 变化原因的参数
-				params: level.toString(),
-				// 关卡数
-				level: level,
-				// 道具类型
-				type: 1
-			});
-			await itemRecordData.save();
-		}
-		if (endNumItem2 !== me.items[1]) {
-			const itemRecordData = new itemRecordModel({
-				uid: numberUtil.from10To36(me.id),
-				date: now,
-				// 变化之前的数量
-				oldVal: me.items[1],
-				// 变化之后的数量
-				newVal: endNumItem2,
-				// 变化的原因
-				reason: 'levelWin',
-				// 变化原因的参数
-				params: level.toString(),
-				// 关卡数
-				level: level,
-				// 道具类型
-				type: 2
-			});
-			await itemRecordData.save();
-		}
-		if (endNumItem3 !== me.items[2]) {
-			const itemRecordData = new itemRecordModel({
-				uid: numberUtil.from10To36(me.id),
-				date: now,
-				// 变化之前的数量
-				oldVal: me.items[2],
-				// 变化之后的数量
-				newVal: endNumItem3,
-				// 变化的原因
-				reason: 'levelWin',
-				// 变化原因的参数
-				params: level.toString(),
-				// 关卡数
-				level: level,
-				// 道具类型
-				type: 3
-			});
-			await itemRecordData.save();
-		}
-		if (endNumItem4 !== me.items[3]) {
-			const itemRecordData = new itemRecordModel({
-				uid: numberUtil.from10To36(me.id),
-				date: now,
-				// 变化之前的数量
-				oldVal: me.items[3],
-				// 变化之后的数量
-				newVal: endNumItem4,
-				// 变化的原因
-				reason: 'levelWin',
-				// 变化原因的参数
-				params: level.toString(),
-				// 关卡数
-				level: level,
-				// 道具类型
-				type: 4
-			});
-			await itemRecordData.save();
-		}
-		// 钻石变化记录
-		if (me.diamonds !== endDiamonds) {
-			const diamondsRecordData = new diamondsRecordModel({
-				uid: numberUtil.from10To36(me.id),
-				date: now,
-				// 变化之前的数量
-				oldVal: me.diamonds,
-				// 变化之后的数量
-				newVal: endDiamonds,
-				// 变化的原因
-				reason: 'levelWin',
-				// 变化原因的参数
-				params: level.toString()
-			});
-			await diamondsRecordData.save();
-		}
+		// if (endNumItem1 !== me.items[0]) {
+		// 	const itemRecordData = new itemRecordModel({
+		// 		uid: numberUtil.from10To36(me.id),
+		// 		date: now,
+		// 		// 变化之前的数量
+		// 		oldVal: me.items[0],
+		// 		// 变化之后的数量
+		// 		newVal: endNumItem1,
+		// 		// 变化的原因
+		// 		reason: 'levelWin',
+		// 		// 变化原因的参数
+		// 		params: level.toString(),
+		// 		// 关卡数
+		// 		level: level,
+		// 		// 道具类型
+		// 		type: 1
+		// 	});
+		// 	await itemRecordData.save();
+		// }
+		// if (endNumItem2 !== me.items[1]) {
+		// 	const itemRecordData = new itemRecordModel({
+		// 		uid: numberUtil.from10To36(me.id),
+		// 		date: now,
+		// 		// 变化之前的数量
+		// 		oldVal: me.items[1],
+		// 		// 变化之后的数量
+		// 		newVal: endNumItem2,
+		// 		// 变化的原因
+		// 		reason: 'levelWin',
+		// 		// 变化原因的参数
+		// 		params: level.toString(),
+		// 		// 关卡数
+		// 		level: level,
+		// 		// 道具类型
+		// 		type: 2
+		// 	});
+		// 	await itemRecordData.save();
+		// }
+		// if (endNumItem3 !== me.items[2]) {
+		// 	const itemRecordData = new itemRecordModel({
+		// 		uid: numberUtil.from10To36(me.id),
+		// 		date: now,
+		// 		// 变化之前的数量
+		// 		oldVal: me.items[2],
+		// 		// 变化之后的数量
+		// 		newVal: endNumItem3,
+		// 		// 变化的原因
+		// 		reason: 'levelWin',
+		// 		// 变化原因的参数
+		// 		params: level.toString(),
+		// 		// 关卡数
+		// 		level: level,
+		// 		// 道具类型
+		// 		type: 3
+		// 	});
+		// 	await itemRecordData.save();
+		// }
+		// if (endNumItem4 !== me.items[3]) {
+		// 	const itemRecordData = new itemRecordModel({
+		// 		uid: numberUtil.from10To36(me.id),
+		// 		date: now,
+		// 		// 变化之前的数量
+		// 		oldVal: me.items[3],
+		// 		// 变化之后的数量
+		// 		newVal: endNumItem4,
+		// 		// 变化的原因
+		// 		reason: 'levelWin',
+		// 		// 变化原因的参数
+		// 		params: level.toString(),
+		// 		// 关卡数
+		// 		level: level,
+		// 		// 道具类型
+		// 		type: 4
+		// 	});
+		// 	await itemRecordData.save();
+		// }
+		// // 钻石变化记录
+		// if (me.diamonds !== endDiamonds) {
+		// 	const diamondsRecordData = new diamondsRecordModel({
+		// 		uid: numberUtil.from10To36(me.id),
+		// 		date: now,
+		// 		// 变化之前的数量
+		// 		oldVal: me.diamonds,
+		// 		// 变化之后的数量
+		// 		newVal: endDiamonds,
+		// 		// 变化的原因
+		// 		reason: 'levelWin',
+		// 		// 变化原因的参数
+		// 		params: level.toString()
+		// 	});
+		// 	await diamondsRecordData.save();
+		// }
 		// 更新金币和最大关卡
 		const maxLevel = me.maxLevel > level ? me.maxLevel : level;
 		await userModel.update({account}, {$set: {
@@ -319,6 +319,60 @@ exports.levelWin = async function (ctx) {
 			startDollar,
 			endDollar,
 			awards: JSON.parse(award)
+		});
+		await levelData.save();
+
+		ctx.body = jsonUtil.createAPI(1);
+	} else {
+		ctx.body = jsonUtil.createAPI(-1, `没有找到用户:${account}`);
+	}
+}
+
+exports.levelFail = async function (ctx) {
+	let {
+		account,
+		level,
+		startTimer,
+		endTimer,
+		startNumItem1,
+		startNumItem2,
+		startNumItem3,
+		startNumItem4,
+		endNumItem1,
+		endNumItem2,
+		endNumItem3,
+		endNumItem4,
+		startDollar,
+		endDollar,
+		endDiamonds
+	} = ctx.params;
+	level = numberUtil.toInt(level);
+	startTimer = numberUtil.toInt(startTimer);
+	endTimer = numberUtil.toInt(endTimer);
+	startNumItem4 = numberUtil.toInt(startNumItem4);
+	startNumItem3 = numberUtil.toInt(startNumItem3);
+	startNumItem2 = numberUtil.toInt(startNumItem2);
+	startNumItem1 = numberUtil.toInt(startNumItem1);
+	endNumItem4 = numberUtil.toInt(endNumItem4);
+	endNumItem3 = numberUtil.toInt(endNumItem3);
+	endNumItem2 = numberUtil.toInt(endNumItem2);
+	endNumItem1 = numberUtil.toInt(endNumItem1);
+	startDollar = numberUtil.toInt(startDollar);
+	endDollar = numberUtil.toInt(endDollar);
+	endDiamonds = numberUtil.toInt(endDiamonds);
+	const now = dateUtil.now();
+	const me = await userModel.findOne({account}, {maxLevel: 1, id: 1, dollar: 1, items: 1, diamonds: 1});
+	if (me) {
+		const levelData = new levelModel({
+			uid: numberUtil.from10To36(me.id),
+			numLevel: level,
+			startDate: startTimer,
+			endDate: endTimer,
+			startItems: [startNumItem1, startNumItem2, startNumItem3, startNumItem4],
+			endItems: [endNumItem1, endNumItem2, endNumItem3, endNumItem4],
+			startDollar,
+			endDollar,
+			isWin: false
 		});
 		await levelData.save();
 

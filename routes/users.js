@@ -13,6 +13,7 @@ router.get('/', function (ctx, next) {
 router.post('login', user.login);
 
 router.get('levelWin/:account/:level/:startTimer/:endTimer/:startNumItem1/:startNumItem2/:startNumItem3/:startNumItem4/:endNumItem1/:endNumItem2/:endNumItem3/:endNumItem4/:startDollar/:endDollar/:endDiamonds/:award', user.levelWin);
+router.get('levelWin/:account/:level/:startTimer/:endTimer/:startNumItem1/:startNumItem2/:startNumItem3/:startNumItem4/:endNumItem1/:endNumItem2/:endNumItem3/:endNumItem4/:startDollar/:endDollar/:endDiamonds', user.levelFail);
 
 // router.get('levelWin/:account/:level/:startTimer/:endTimer/:startNumItem1/:startNumItem2/:startNumItem3/:startNumItem4/:endNumItem1/:endNumItem2/:endNumItem3/:endNumItem4/:startDollar/:endDollar/:endDiamonds', async (ctx) => {
 // 	ctx.body = 'dd';
