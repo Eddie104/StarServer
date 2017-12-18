@@ -484,12 +484,36 @@ exports.updateLastFetchLoginAwardTime = async function (ctx) {
 	ctx.body = jsonUtil.createAPI(1);
 }
 
+exports.updateLastFailedLevel = async function (ctx) {
+	const { account, lastFailedLevel } = ctx.params;	
+	await userModel.update({account}, {$set: {
+		lastFailedLevel: numberUtil.toInt(lastFailedLevel)
+	}});
+	ctx.body = jsonUtil.createAPI(1);
+}
+
 exports.updateLiuXingMax = async function (ctx) {
 	const { account, liuXingMax } = ctx.params;
 	await userModel.update({account}, {$set: {liuXingMax: numberUtil.toInt(liuXingMax)}});
 	ctx.body = jsonUtil.createAPI(1);
 }
 
+exports.updateWeekRankRecord = async function (ctx) {
+	const { account, weekRankRecord } = ctx.params;
+	await userModel.update({account}, {$set: {weekRankRecord: numberUtil.toInt(weekRankRecord)}});
+	ctx.body = jsonUtil.createAPI(1);	
+}
+
+exports.updateMaxLevel = async function (ctx) {
+	const { account, maxLevel } = ctx.params;
+	await userModel.update({account}, {$set: {maxLevel: numberUtil.toInt(maxLevel)}});
+	ctx.body = jsonUtil.createAPI(1);	
+}
+
+exports.getActivityNotice = async function (ctx) {
+	const noticeList = await activityNoticeModel.find({isDeleted: false});
+	ctx.body = jsonUtil.createAPI(1, noticeList);
+}
 
 
 // exports.thirdPartyLogin = async function (ctx, next) {

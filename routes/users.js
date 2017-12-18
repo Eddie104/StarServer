@@ -34,16 +34,13 @@ router.get('updateMaxTotalScore/:account/:maxTotalScore', user.updateMaxTotalSco
 router.get('updateLastFetchLoginAwardTime/:account/:lastFetchLoginAwardTime/:fetchLoginAwardCount', user.updateLastFetchLoginAwardTime);
 router.get('updateLiuXingMax/:account/:liuXingMax', user.updateLiuXingMax);
 router.post('updateLevelScore', user.updateLevelScore);
+router.get('updateLastFailedLevel/:account/:lastFailedLevel', user.updateLastFailedLevel);
+// router.get('updateWeekRankRecord/:account/:weekRankRecord', user.updateWeekRankRecord);
+router.get('updateMaxLevel/:account/:maxLevel', user.updateMaxLevel);
 
-// lastLevel: {type: Number, default: 0},
-// 	totalScore: {type: Number, default: 0},
-// 	levelScore: {type: [Number], default: []},
-// 	exp: {type: Number, default: 0},
-// 	maxTotalScore: {type: Number, default: 0},
-// 	lastFetchLoginAwardTime: {type: Number, default: 0},
-// 	fetchLoginAwardCount: {type: Number, default: 0},
-// 	liuXingMax: {type: Number, default: 0},
-// 	lastFailedLevel: {type: Number, default: 0},
+router.get('getActivityNotice', user.getActivityNotice);
+
+
 // 	weekRankRecord: {type: Number, default: 0},
 // 	weekRank: {type: Number, default: 0},
 // 	weekScore: {type: Number, default: 0},

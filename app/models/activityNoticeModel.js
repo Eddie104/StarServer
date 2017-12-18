@@ -10,7 +10,8 @@ const COLLECTION_NAME = 'activityNotices';
 
 const schema = new mongoose.Schema({
 	content: {type: String, required: true},
-	date: {type: Date, required: true}
+	date: {type: Date, required: true},
+	isDeleted: {type: Boolean, defalt: false},
 }, {collection: COLLECTION_NAME});
 
 /**
